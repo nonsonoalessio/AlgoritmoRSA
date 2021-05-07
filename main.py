@@ -52,7 +52,7 @@ def crittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
         messaggioCifrato = cifrario[messaggio]
         messaggioCifrato = (messaggioCifrato ** pub) % n
         print('Il messaggio cifrato è: ', messaggioCifrato)
-        ripetere = input('Desideri cifrare un altro messaggio? Inserisci la lettara da cifrare, altrimenti digita\'stop\'. Scelta: ')
+        ripetere = input('Per arrestare il programma digita \'stop\', altrimenti premi un tasto. Scelta: ')
 def decrittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
     disponibilitaChiavi = ''
     while disponibilitaChiavi != 's' and disponibilitaChiavi != 'n':
@@ -76,12 +76,10 @@ def decrittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
             print(stringaValueError)
             os.system('exit')
         messaggioDecrittografato = (messaggio ** pri) % n
-        trovaValore(cifrario, messaggioDecrittografato)
-def trovaValore(cifrario, messaggioDecrittografato):
-    for i in cifrario:
-        if i == messaggioDecrittografato:
-            return i
-            break
+        for i in cifrario:
+            if (cifrario[i] == messaggioDecrittografato):
+                print('Il messaggio decrittografato è: ', i)
+        ripetere = input('Per arrestare il programma digita \'stop\', altrimenti premi un tasto. Scelta: ')
 # MAIN
 cifrario = {'a':1,
             'b':2,
