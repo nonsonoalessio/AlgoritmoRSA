@@ -1,34 +1,28 @@
 import os
-
+from math import gcd as mcm
 # pub * priv = k * z + 1
+
 def calcoloChiavi(n, pub, pri, stringValueError):
-    a = input('Immettere valore di a: ')
-    b = input('Immettere valore di b: ')
     try:
-        a = int(a)
-        b = int(b)
+        a = int(input('Immettere valore di a: '))
+        b = int(input('Immettere valore di b: '))
     except ValueError:
         print(stringaValueError)
         os.system('exit')
     n = a * b
     z = (a - 1) * (b - 1)
     pri = calcoloPri(z)
-    q = trovaQ(z, pri)
-    pub = (((q * z) + 1) / pri)
-    print('Le chiavi sono: (', pub, ', ', n, ') & (', pri, ', ', n, ').')
+    print('# La chiave pubblica è: (', pub, ', ', n, ').\n# La chiave privata è: (', pri, ', ', n, ').')
 def calcoloPri(z):
-    numeriPrimi = [2, 3, 5, 7, 11, 13, 17, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-    for i in numeriPrimi:
-        if z % i != 0:
-            return i
-            break
-def trovaQ(z, pri):
-    for i in range(100):
-        temp = (((i * z) + 1) / pri)
-        controllo = isinstance(temp, int)
-        if controllo == True:
-            return i
-            break
+    controlloCiclo = False
+    while controlloCiclo == False:
+        k = 0
+        priCalcolo = (((k * z) + 1) / pub)
+        if isinstance(priCalcolo, int) == True:
+            controlloCiclo = True
+        else:
+            k = k + 1
+    return priCalcolo
 def crittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
     disponibilitaChiavi = ''
     while disponibilitaChiavi != 's' and disponibilitaChiavi != 'n':
