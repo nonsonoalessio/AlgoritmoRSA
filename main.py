@@ -1,40 +1,67 @@
 import os
-from math import gcd as mcm
-# pub * priv = k * z + 1
-
-def calcoloChiavi(n, pub, pri, stringValueError):
+def verificaPrimo(a, b):
+    for i in range (2, a):
+        if (a % i) == 0:
+            raise ValueError('Il termine a non è primo!')
+    for j in range (2, b):
+        if (b % i) == 0:
+            raise ValueError('Il termine b non è primo!')
+def calcoloChiavi(stringaValueError):
+    chiave = ''
+    stringaValueError = stringaValueError
+    while chiave != 'pub' and chiave != 'pri':
+        chiave = input('Si necessita della chiave pubblica o privata? Immettere:\n* "pub" per la chiave pubblica;\n*"pri" per la chiave privata.\nScelta: ')
+        chiave = chiave.lower()
+        if chiave == 'pub':
+            chiavePubblica(stringaValueError)
+        elif chiave == 'pri':
+            chiavePrivata(stringaValueError)
+        else:
+            print('Scelta non valida. Riprova.')
+def chiavePrivata(stringaValueError):
+    i = 1
     try:
-        a = int(input('Immettere valore di a: '))
-        b = int(input('Immettere valore di b: '))
+        a = int(input('inserisci a: '))
+        b = int(input('inserisci b: '))
+        pub = int(input('inserisci pub: '))
     except ValueError:
         print(stringaValueError)
-        os.system('exit')
+    verificaPrimo(a, b)
     n = a * b
-    z = (a - 1) * (b - 1)
-    pri = calcoloPri(z)
-    print('# La chiave pubblica è: (', pub, ', ', n, ').\n# La chiave privata è: (', pri, ', ', n, ').')
-def calcoloPri(z):
-    controlloCiclo = False
-    while controlloCiclo == False:
-        k = 0
-        priCalcolo = (((k * z) + 1) / pub)
-        if isinstance(priCalcolo, int) == True:
-            controlloCiclo = True
-        else:
-            k = k + 1
-    return priCalcolo
+    z = ((a - 1) * (b - 1))
+    while ((pub * i) % z) != 1:
+        i = i + 1
+        if ((pub * i) % z) == 1:
+            pri = i
+            print('La chiave privata è: (', pri, ', ', n, ').')
+def chiavePubblica(stringaValueError):
+    i = 1
+    try:
+        a = int(input('inserisci a: '))
+        b = int(input('inserisci b: '))
+        pri = int(input('inserisci pri: '))
+    except ValueError:
+        print(stringaValueError)
+    verificaPrimo(a, b)
+    n = a * b
+    z = ((a - 1) * (b - 1))
+    while ((pri * i) % z) != 1:
+        i = i + 1
+        if ((pri * i) % z) == 1:
+            pub = i
+            print('La chiave pubblica è: ', '(', pub, ', ', n, ').')
 def crittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
+    stringaValueError = stringaValueError
     disponibilitaChiavi = ''
     while disponibilitaChiavi != 's' and disponibilitaChiavi != 'n':
         disponibilitaChiavi = input('Si dispone delle chiavi di cifratura?\nScelta (s/n): ')
         disponibilitaChiavi = disponibilitaChiavi.lower()
     if disponibilitaChiavi == 'n':
-        calcoloChiavi(n, pub, pri)
+        chiavePubblica(stringaValueError)
     if disponibilitaChiavi == 's':
         try:
             pub = int(input('Inserire valore di pub: '))
             n = int(input('Inserire valore di n: '))
-            pri = int(input('Inserire valore di pri: '))
         except ValueError:
             print(stringaValueError)
             os.system('exit')
@@ -45,15 +72,20 @@ def crittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
         # elevamento a potenza: x ** y
         messaggioCifrato = cifrario[messaggio]
         messaggioCifrato = (messaggioCifrato ** pub) % n
-        print('Il messaggio cifrato è: ', messaggioCifrato)
+        messaggioCifratoStringa = ''
+#        for i in cifrario:
+#           if (cifrario[i] == messaggioDecrittografato):
+#                print('Il messaggio decrittografato è: ', i)
+        print('Il messaggio cifrato è: ', messaggioCifratoStringa, 'il cui valore numerico è: ', messaggioCifrato)
         ripetere = input('Per arrestare il programma digita \'stop\', altrimenti premi un tasto. Scelta: ')
 def decrittografaMessaggio(cifrario, stringaValueError, n, pub, pri):
+    stringaValueError = stringaValueError
     disponibilitaChiavi = ''
     while disponibilitaChiavi != 's' and disponibilitaChiavi != 'n':
         disponibilitaChiavi = input('Si dispone delle chiavi di cifratura?\nScelta (s/n): ')
         disponibilitaChiavi = disponibilitaChiavi.lower()
     if disponibilitaChiavi == 'n':
-        calcoloChiavi(n, pub, pri)
+        chiavePrivata(stringaValueError)
     if disponibilitaChiavi == 's':
         try:
             pub = int(input('Inserire valore di pub: '))
@@ -100,7 +132,34 @@ cifrario = {'a':1,
             'w':23,
             'x':24,
             'y':25,
-            'z':26}
+            'z':26,
+            ' A': 27 ,
+            ' B': 28 ,
+            ' C': 29 ,
+            ' D': 30 ,
+            ' E': 31 ,
+            ' F': 32 ,
+            ' G': 33 ,
+            ' H': 34 ,
+            ' I': 35 ,
+            ' J': 36 ,
+            ' K': 37 ,
+            ' L': 38 ,
+            ' M': 39 ,
+            ' N': 40 ,
+            ' O': 41 ,
+            ' P': 42 ,
+            ' Q': 43 ,
+            ' R': 44 ,
+            ' S': 45 ,
+            ' T': 46 ,
+            ' U': 47 ,
+            ' V': 48 ,
+            ' W': 49 ,
+            ' X': 50 ,
+            ' Y': 51 ,
+            ' Z': 52
+            }
 modalita = '0'
 n = 0
 pub = 0
