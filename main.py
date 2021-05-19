@@ -53,7 +53,7 @@ def chiavePubblica(stringaValueError):
         if ((pri * i) % z) == 1:
             pub = i
             print('La chiave pubblica è: ', '(', pub, ', ', n, ').')
-def crittografaMessaggio(cifrario, stringaValueError):
+def crittografaMessaggio(cifrario, stringaValueError, cifrarioFlipped):
     stringaValueError = stringaValueError
     disponibilitaChiavi = ''
     while disponibilitaChiavi != 's' and disponibilitaChiavi != 'n':
@@ -74,11 +74,8 @@ def crittografaMessaggio(cifrario, stringaValueError):
         # elevamento a potenza: x ** y
         messaggioCifrato = cifrario[messaggio]
         messaggioCifrato = (messaggioCifrato ** pub) % n
-        messaggioCifratoStringa = ''
-#        for i in cifrario:
-#           if (cifrario[i] == messaggioDecrittografato):
-#                print('Il messaggio decrittografato è: ', i)
-        print('Il messaggio cifrato è: ', messaggioCifratoStringa, 'il cui valore numerico è: ', messaggioCifrato)
+        messaggioCifratoStringa = cifrarioFlipped.get(messaggioCifrato)
+        print('Il messaggio cifrato è:', messaggioCifratoStringa, '; il cui valore numerico è: ', messaggioCifrato)
         ripetere = input('Per arrestare il programma digita \'stop\', altrimenti premi un tasto. Scelta: ')
 def decrittografaMessaggio(cifrarioFlipped, stringaValueError):
     stringaValueError = stringaValueError
@@ -224,7 +221,7 @@ while modalita != '1' and modalita != '2' and modalita != '3':
     if modalita == '1':
         calcoloChiavi(stringaValueError)
     elif modalita == '2':
-        crittografaMessaggio(cifrario, stringaValueError)
+        crittografaMessaggio(cifrario, stringaValueError, cifrarioFlipped)
     elif modalita == '3':
         decrittografaMessaggio(cifrarioFlipped, stringaValueError)
     else:
